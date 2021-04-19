@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::resource('/posts', PostsController::class);
 
+Route::get('/posts/search/{title}', [PostsController::class, 'search']);
 //Route::get('/posts', [PostsController::class, 'index']);
 //Route::post('/posts', [PostsController::class, 'store']);
 //Route::post('/posts/{post}', [PostsController::class, 'show']);

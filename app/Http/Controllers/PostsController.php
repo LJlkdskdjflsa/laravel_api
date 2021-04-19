@@ -68,4 +68,9 @@ class PostsController extends Controller
     {
         return Posts::destroy($id);
     }
+
+    public function search($title)
+    {
+        return Posts::where('title', 'like', '%' . $title . '%')->get();
+    }
 }
