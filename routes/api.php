@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::resource('/posts', PostsController::class);
 
+//public route
+//Route::resource('/posts', PostsController::class);
+Route::get('/posts', [PostsController::class, 'index']);
+Route::get('/posts/{post}', [PostsController::class, 'show']);
 Route::get('/posts/search/{title}', [PostsController::class, 'search']);
-//Route::get('/posts', [PostsController::class, 'index']);
-//Route::post('/posts', [PostsController::class, 'store']);
-//Route::post('/posts/{post}', [PostsController::class, 'show']);
+
+//protected route
+Route::group(['middleware' => ['auth:sanctum']],function(){
+    Route::post('/posts', [PostsController::class, 'store']);
+    Route::put('/posts/{id}', [PostsController::class, 'update']);
+    Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
+});
+
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
