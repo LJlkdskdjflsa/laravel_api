@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/posts', [PostsController::class, 'index']);
-/*
-Route::post('/posts', function () {
-    return Posts::create([
-        'title' => 'T1',
-        'content' => 'C1',
-    ]);
-});
-*/
+Route::resource('/posts', PostsController::class);
+
+//Route::get('/posts', [PostsController::class, 'index']);
+//Route::post('/posts', [PostsController::class, 'store']);
+//Route::post('/posts/{post}', [PostsController::class, 'show']);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

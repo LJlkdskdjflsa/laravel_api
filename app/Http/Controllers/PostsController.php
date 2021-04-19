@@ -26,7 +26,11 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        return Posts::create($request->all());
     }
 
     /**
@@ -37,7 +41,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        return Posts::find($id);
     }
 
     /**
@@ -49,7 +53,9 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Posts::find($id);
+        $post->update($request->all());
+        return $post;
     }
 
     /**
@@ -60,6 +66,6 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Posts::destroy($id);
     }
 }
