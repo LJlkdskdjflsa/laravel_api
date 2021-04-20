@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{post}', [PostsController::class, 'show']);
 Route::get('/posts/search/{title}', [PostsController::class, 'search']);
+Route::post('/register', [AuthController::class, 'register']);
+
 
 //protected route
 Route::group(['middleware' => ['auth:sanctum']],function(){
