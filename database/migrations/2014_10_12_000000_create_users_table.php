@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->bigInteger('post_count')->nullable();
+            $table->bigInteger('like_score')->nullable();
+            $table->bigInteger('dislike_score')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

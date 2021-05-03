@@ -22,6 +22,7 @@ Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{post}', [PostsController::class, 'show']);
 Route::get('/posts/search/{title}', [PostsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 //protected route
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['auth:sanctum']],function(){
     Route::put('/posts/{id}', [PostsController::class, 'update']);
     Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('user/update', [AuthController::class, 'update']);
+
 });
 
 
