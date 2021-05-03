@@ -22,7 +22,10 @@ class CommandsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => $this->faker->numberBetween(1,10),
+            'content' => $this->faker->paragraph(5),
+            'likes' => $this->faker->numberBetween(1,10),
+            'dislikes' => $this->faker->numberBetween(1,10),
         ];
     }
 }

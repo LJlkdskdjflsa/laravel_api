@@ -4,11 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Posts extends Model
 {
-    protected $fillable = [
-        'title',
-        'content',
-    ];
+    use HasFactory;
+    //property
+    protected $guarded = [];
+
+    //relation
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function commands(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Commands::class);
+    }
 }
