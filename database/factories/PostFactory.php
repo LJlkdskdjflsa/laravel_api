@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Posts;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ class PostFactory extends Factory
      *
      * @var string
      */
-    protected $model = Posts::class;
+    protected $model = Post::class;
 
     /**
      * Define the model's default state.
@@ -26,7 +26,7 @@ class PostFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1,10),
             'title' => $this->faker->name,
-            'content' => $this->faker->paragraph(5),
+            'content' => $this->faker->paragraph(1),
             'likes' => $this->faker->numberBetween(1,10),
             'dislikes' => $this->faker->numberBetween(1,10),
         ];

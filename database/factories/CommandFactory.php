@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Commands;
+use App\Models\Command;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CommandsFactory extends Factory
+class CommandFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Commands::class;
+    protected $model = Command::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +23,8 @@ class CommandsFactory extends Factory
     {
         return [
             'user_id' => $this->faker->numberBetween(1,10),
-            'content' => $this->faker->paragraph(5),
+            'post_id' => $this->faker->numberBetween(1,10),
+            'content' => $this->faker->name,
             'likes' => $this->faker->numberBetween(1,10),
             'dislikes' => $this->faker->numberBetween(1,10),
         ];

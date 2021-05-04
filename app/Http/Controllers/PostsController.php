@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return Posts::all();
+        return Post::all();
     }
 
     /**
@@ -29,7 +29,7 @@ class PostsController extends Controller
             'title' => 'required',
             'content' => 'required'
         ]);
-        return Posts::create($request->all());
+        return Post::create($request->all());
     }
 
     /**
@@ -40,7 +40,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return Posts::find($id);
+        return Post::find($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Posts::find($id);
+        $post = Post::find($id);
         $post->update($request->all());
         return $post;
     }
@@ -65,11 +65,11 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        return Posts::destroy($id);
+        return Post::destroy($id);
     }
 
     public function search($title)
     {
-        return Posts::where('title', 'like', '%' . $title . '%')->get();
+        return Post::where('title', 'like', '%' . $title . '%')->get();
     }
 }

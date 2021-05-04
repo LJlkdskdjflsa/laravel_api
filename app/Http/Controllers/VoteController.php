@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Command;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
-class CommandsController extends Controller
+class VoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CommandsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Command  $commands
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function show(Command $commands)
+    public function show(Vote $vote)
     {
         //
     }
@@ -52,10 +52,10 @@ class CommandsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Command  $commands
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function edit(Command $commands)
+    public function edit(Vote $vote)
     {
         //
     }
@@ -64,10 +64,10 @@ class CommandsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Command  $commands
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Command $commands)
+    public function update(Request $request, Vote $vote)
     {
         //
     }
@@ -75,10 +75,10 @@ class CommandsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Command  $commands
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Command $commands)
+    public function destroy(Vote $vote)
     {
         //
     }

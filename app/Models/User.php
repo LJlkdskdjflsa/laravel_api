@@ -33,6 +33,6 @@ class User extends Authenticatable
     //relation
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Posts::class);
+        return $this->hasMany(Post::class);
     }
 }
