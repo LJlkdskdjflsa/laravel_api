@@ -49,7 +49,19 @@ class PostsController extends Controller
     }
     public function destroy($id)
     {
-        return Post::destroy($id);
+
+        if(auth()->check()) {
+            $post = Post::find($id);
+            if(auth()->id() == $post->user_id){
+
+                $post->destroy($id);
+                return "post has been destroyed";
+            }else{
+                return "You are not the user who create this post,please edit your own post";
+            }
+        }else{
+            return "You are not user please log in";
+        }
     }
 
     public function search($title)
