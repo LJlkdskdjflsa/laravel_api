@@ -31,9 +31,21 @@ class PostsController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
-        $post->update($request->all());
-        return $post;
+        if(auth()->check()) {
+            $post = Post::find($id);
+            if(auth()->id() == $post->user_id){
+
+                $post->update([
+                    'title' => $request->title,
+                    'content' => $request->content,
+                ]);
+                return $post;
+            }else{
+                return "You are not the user who create this post,please edit your own post";
+            }
+        }else{
+            return "You are not user please log in";
+        }
     }
     public function destroy($id)
     {
