@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Posts extends Model
+class Post extends Model
 {
     use HasFactory;
     //property
@@ -20,6 +20,6 @@ class Posts extends Model
 
     public function commands(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Commands::class);
+        return $this->hasMany(Command::class);
     }
 }
