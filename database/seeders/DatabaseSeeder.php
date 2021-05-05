@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
         Post::factory(10)->create();
-        Command::factory(10)->create();
+        Command::factory(100)->create();
 
         foreach (range(1,10) as $user_id){
             foreach(range(1,10) as $post_id){

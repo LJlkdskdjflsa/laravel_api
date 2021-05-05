@@ -11,6 +11,10 @@ class PostsController extends Controller
     {
         return Post::all();
     }
+    public function show($id)
+    {
+        return Post::find($id);
+    }
     public function store(Request $request)
     {
         if(auth()->check()){
@@ -24,10 +28,6 @@ class PostsController extends Controller
                 'user_id' => auth()->id(),
             ]);
         }
-    }
-    public function show($id)
-    {
-        return Post::find($id);
     }
     public function update(Request $request, $id)
     {

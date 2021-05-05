@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommandsController;
 use App\Http\Controllers\PostsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,22 +18,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 //public route
-//Route::resource('/posts', PostsController::class);
+//user
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+//post
 Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{post}', [PostsController::class, 'show']);
 Route::get('/posts/search/{title}', [PostsController::class, 'search']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+//command
+Route::get('/commands', [CommandsController::class, 'index']);
+Route::get('/posts/{post}/commands', [CommandsController::class, 'show']);
+
+
 
 
 //protected route
 Route::group(['middleware' => ['auth:sanctum']],function(){
+    //user
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('user/update', [AuthController::class, 'update']);
+    //post
     Route::post('/posts', [PostsController::class, 'store']);
     Route::put('/posts/{id}', [PostsController::class, 'update']);
     Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('user/update', [AuthController::class, 'update']);
-
+    //command
+    Route::post('/commands', [CommandsController::class, 'store']);
+    Route::delete('/commands/{id}', [CommandsController::class, 'destroy']);
 });
 
 

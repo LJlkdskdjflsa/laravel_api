@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Command extends Model
 {
     use HasFactory;
-
     //property
     protected $guarded = [];
 
