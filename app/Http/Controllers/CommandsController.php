@@ -38,13 +38,16 @@ class CommandsController extends Controller
     public function destroy($id)
     {
         if(auth()->check()) {
-            $command = Command::find($id);
-            if(auth()->id() == $command->user_id){
-                $command->destroy($id);
-                return response()->json("post has been destroyed", Response::HTTP_ACCEPTED);
-            }else{
-                return response()->json("You are not the user who create this command,please edit your own commands", Response::HTTP_UNAUTHORIZED);
+            if(Command::check($id)){
+                $command = Command::find($id);
+                if(auth()->id() == $command->user_id){
+                    $command->destroy($id);
+                    return response()->json(null, Response::HTTP_NO_CONTENT);
+                }else{
+                    return response()->json("You are not the user who create this command,please edit your own commands", Response::HTTP_UNAUTHORIZED);
+                }
             }
+            return response()->json("the command id not found", Response::HTTP_NOT_FOUND);
         }else{
             return response()->json("You are not user please log in", Response::HTTP_UNAUTHORIZED);
         }

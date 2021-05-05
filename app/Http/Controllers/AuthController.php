@@ -94,4 +94,12 @@ class AuthController extends Controller
             'message' => 'Logged out'
         ];
     }
+
+    //function
+    public function profile()
+    {
+        $user = User::find(auth()->id());
+        return response()->json($user, \Symfony\Component\HttpFoundation\Response::HTTP_OK);
+
+    }
 }

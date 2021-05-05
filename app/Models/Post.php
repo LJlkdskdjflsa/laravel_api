@@ -22,4 +22,14 @@ class Post extends Model
     {
         return $this->hasMany(Command::class);
     }
+
+    //function
+    public static function check($id)
+    {
+        $post = Post::where('id', '=', $id)->first();
+        if ($post === null) {
+            return false;
+        }
+        return true;
+    }
 }

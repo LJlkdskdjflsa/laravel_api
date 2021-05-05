@@ -35,8 +35,9 @@ Route::get('/posts/{post}/commands', [CommandsController::class, 'show']);
 //protected route
 Route::group(['middleware' => ['auth:sanctum']],function(){
     //user
+    Route::post('/user', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('user/update', [AuthController::class, 'update']);
+    Route::post('/user/update', [AuthController::class, 'update']);
     //post
     Route::post('/posts', [PostsController::class, 'store']);
     Route::put('/posts/{id}', [PostsController::class, 'update']);

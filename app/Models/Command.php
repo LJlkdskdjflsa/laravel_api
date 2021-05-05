@@ -22,4 +22,14 @@ class Command extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    //function
+    public static function check($id)
+    {
+        $command = Command::where('id', '=', $id)->first();
+        if ($command === null) {
+            return false;
+        }
+        return true;
+    }
 }
