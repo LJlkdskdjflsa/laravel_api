@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\APIDocsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommandsController;
 use App\Http\Controllers\PostsController;

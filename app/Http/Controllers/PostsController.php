@@ -1,16 +1,24 @@
 <?php
+/**
+ * @OA\Info(title="My First API", version="0.1")
+ */
 
 namespace App\Http\Controllers;
 
 use App\Models\Command;
 use App\Models\Post;
-use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostsController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/resource.json",
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     */
     public function index()
     {
         $vote_post = DB::table('posts')
