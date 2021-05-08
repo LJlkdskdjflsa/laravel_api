@@ -23,6 +23,11 @@ class Command extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function votes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     //function
     public static function check($id)
     {

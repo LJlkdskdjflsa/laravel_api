@@ -23,6 +23,12 @@ class Post extends Model
         return $this->hasMany(Command::class);
     }
 
+    public function votes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+
     //function
     public static function check($id)
     {

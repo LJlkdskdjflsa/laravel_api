@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommandsController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,8 +46,12 @@ Route::group(['middleware' => ['auth:sanctum']],function(){
     //command
     Route::post('/commands', [CommandsController::class, 'store']);
     Route::delete('/commands/{id}', [CommandsController::class, 'destroy']);
-});
+    //vote
+    Route::post('/vote', [VoteController::class, 'store']);
+    Route::delete('/vote/{id}', [VoteController::class, 'destroy']);
 
+
+});
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

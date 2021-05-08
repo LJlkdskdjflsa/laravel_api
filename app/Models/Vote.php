@@ -26,4 +26,13 @@ class Vote extends Model
     {
         return $this->belongsTo(Command::class);
     }
+
+    public static function check($id)
+    {
+        $vote = Vote::where('id', '=', $id)->first();
+        if ($vote === null) {
+            return false;
+        }
+        return true;
+    }
 }

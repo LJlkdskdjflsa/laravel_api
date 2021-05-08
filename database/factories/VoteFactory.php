@@ -26,7 +26,7 @@ class VoteFactory extends Factory
             'user_id' => $this->faker->numberBetween(1,10),
             'post_id' => $this->faker->numberBetween(1,10),
             'command_id' => $this->faker->numberBetween(1,10),
-            'status' => $this->faker->numberBetween(1,2),
+            'status' => $this->faker->numberBetween(0,1),
         ];
     }
 }

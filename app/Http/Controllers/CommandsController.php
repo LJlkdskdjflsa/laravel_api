@@ -35,6 +35,7 @@ class CommandsController extends Controller
             return response()->json($response, Response::HTTP_CREATED);
         }
     }
+
     public function destroy($id)
     {
         if(auth()->check()) {
