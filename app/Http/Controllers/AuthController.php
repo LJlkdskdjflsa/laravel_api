@@ -83,7 +83,10 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/update",
-     *     summary="Register a new user",
+     *     summary="Update",
+     *     description="Update user information",
+     *     operationId="update",
+     *     tags={"auth"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -192,6 +195,28 @@ class AuthController extends Controller
         //return $user[0];
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/logout",
+     * summary="Logout",
+     * description="Logout user and invalidate token",
+     * operationId="logout",
+     * operationId="logout",
+     * tags={"auth"},
+     * security={ {"bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success"
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Returns when user is not authenticated",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not authorized"),
+     *    )
+     * )
+     * )
+     */
     public function logout(Request $request){
         auth()->user()->tokens()->delete();
 

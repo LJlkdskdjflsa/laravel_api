@@ -2,6 +2,8 @@
 /**
  * @OA\Info(title="laravel API for forum", version="0.1")
  */
+
+
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

@@ -40,7 +40,7 @@ class PostsController extends Controller
             ->select('posts.id',
                 'posts.title',
                 'posts.user_id',
-                'users.name',
+                'users.name as author_name',
                 DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 1 ) AS "likes"'),
                 DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 0 ) AS "dislikes"'),
                 'posts.created_at',
@@ -53,28 +53,6 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * @OA\Get(
-     * path="/api/posts/{id}",
-     * summary="post index",
-     * description="get all post information to show on the post index page",
-     * operationId="postShow",
-     * tags={"posts"},
-     * @OA\RequestBody(
-     *    required=false
-     * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="OK",
-     *    @OA\JsonContent(
-     *       @OA\Property(
-     *          property="message",
-     *          type="string",
-     *          example="Sorry, wrong email address or password. Please try again")
-     *        )
-     *     )
-     * )
-     */
     public function show($id)
     {
         return Post::find($id);
