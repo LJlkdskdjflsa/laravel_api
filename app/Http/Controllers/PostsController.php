@@ -1,7 +1,4 @@
 <?php
-/**
- * @OA\Info(title="My First API", version="0.1")
- */
 
 namespace App\Http\Controllers;
 
@@ -15,8 +12,24 @@ class PostsController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/resource.json",
-     *     @OA\Response(response="200", description="An example resource")
+     * path="/api/posts",
+     * summary="post index",
+     * description="get all post information to show on the post index page",
+     * operationId="postShow",
+     * tags={"posts"},
+     * @OA\RequestBody(
+     *    required=false
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
      * )
      */
     public function index()
@@ -36,9 +49,32 @@ class PostsController extends Controller
             ->groupBy('posts.id','votes.post_id','users.name')
             ->orderBy('posts.id')
             ->get();
-        return response()->json($vote_post, Response::HTTP_ACCEPTED);
+        return response()->json($vote_post, Response::HTTP_OK);
 
     }
+
+    /**
+     * @OA\Get(
+     * path="/api/posts/{id}",
+     * summary="post index",
+     * description="get all post information to show on the post index page",
+     * operationId="postShow",
+     * tags={"posts"},
+     * @OA\RequestBody(
+     *    required=false
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function show($id)
     {
         return Post::find($id);

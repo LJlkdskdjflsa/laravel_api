@@ -11,6 +11,45 @@ class AuthController extends Controller
 {
 //User CRUD
     //create
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Register a new user",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="password"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password_confirmation",
+     *                     type="password"
+     *                 ),
+     *                 example={
+     *                      "name": "LJ",
+     *                      "email": "LJ@gmail.com",
+     *                      "password": "12345678",
+     *                      "password_confirmation": "12345678",
+     *                  }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function register(Request $request)
     {
         $fields = $request ->validate([
@@ -41,7 +80,45 @@ class AuthController extends Controller
 
     }
 
-    // update
+    /**
+     * @OA\Post(
+     *     path="/api/update",
+     *     summary="Register a new user",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="password"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password_confirmation",
+     *                     type="password"
+     *                 ),
+     *                 example={
+     *                      "name": "LJ",
+     *                      "email": "LJ@gmail.com",
+     *                      "password": "12345678",
+     *                      "password_confirmation": "12345678",
+     *                  }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
+     */
     public function update(Request $request)
     {
         $user =auth()->user();
@@ -61,7 +138,32 @@ class AuthController extends Controller
     {
 
     }
-
+    /**
+     * @OA\Post(
+     * path="api/login",
+     * summary="Sign in",
+     * description="Login by email, password",
+     * operationId="login",
+     * tags={"auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
+     *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
+     *       @OA\Property(property="persistent", type="boolean", example="true"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $fields = $request ->validate([
