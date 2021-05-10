@@ -1,8 +1,13 @@
 <?php
 /**
  * @OA\Info(title="laravel API for forum", version="0.1")
+ * @OAS\SecurityScheme(
+ *      securityScheme="bearer_token",
+ *      type="http",
+ *      scheme="bearer"
+ *
+ * )
  */
-
 
 namespace App\Http\Controllers;
 

@@ -13,7 +13,11 @@ class AuthController extends Controller
     //create
     /**
      * @OA\Post(
-     *     path="/api/register",
+     *     path="/api/user/register",
+     *     summary="Register",
+     *     description="Register new user",
+     *     operationId="register",
+     *     tags={"auth"},
      *     summary="Register a new user",
      *     @OA\RequestBody(
      *         @OA\MediaType(
@@ -70,8 +74,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ];
-
-        return response($response, 201);
+        return response()->json($response, \Symfony\Component\HttpFoundation\Response::HTTP_OK);
     }
 
     // read
@@ -82,11 +85,12 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/update",
+     *     path="/api/user/update",
      *     summary="Update",
      *     description="Update user information",
      *     operationId="update",
      *     tags={"auth"},
+     *     security={{"bearer_token":{}}},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -99,19 +103,9 @@ class AuthController extends Controller
      *                     property="email",
      *                     type="email"
      *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="password"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password_confirmation",
-     *                     type="password"
-     *                 ),
      *                 example={
      *                      "name": "LJ",
-     *                      "email": "LJ@gmail.com",
-     *                      "password": "12345678",
-     *                      "password_confirmation": "12345678",
+     *                      "email": "LJ@gmail.com"
      *                  }
      *             )
      *         )
@@ -133,7 +127,7 @@ class AuthController extends Controller
             'name' => $fields['name'],
             'email' => $fields['email'],
         ]);
-        return $user;
+        return response()->json($user, \Symfony\Component\HttpFoundation\Response::HTTP_OK);
     }
 
     // delete
@@ -143,7 +137,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     * path="api/login",
+     * path="/api/user/login",
      * summary="Sign in",
      * description="Login by email, password",
      * operationId="login",
@@ -197,13 +191,13 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/logout",
+     * path="/api/user/logout",
      * summary="Logout",
      * description="Logout user and invalidate token",
      * operationId="logout",
      * operationId="logout",
      * tags={"auth"},
-     * security={ {"bearer": {} }},
+     * security={{"bearer_token":{}}},
      * @OA\Response(
      *    response=200,
      *    description="Success"
@@ -226,10 +220,32 @@ class AuthController extends Controller
     }
 
     //function
+
+    /**
+     * @OA\Post(
+     * path="/api/user/profile",
+     * summary="Profile",
+     * description="The infomation about the user",
+     * operationId="profile",
+     * tags={"auth"},
+     * security={{"bearer_token":{}}},
+     *
+     * @OA\Response(
+     *    response=200,
+     *    description="Success"
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Returns when user is not authenticated",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not authorized"),
+     *    )
+     * )
+     * )
+     */
     public function profile()
     {
         $user = User::find(auth()->id());
         return response()->json($user, \Symfony\Component\HttpFoundation\Response::HTTP_OK);
-
     }
 }

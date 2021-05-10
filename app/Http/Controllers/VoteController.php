@@ -18,6 +18,36 @@ class VoteController extends Controller
         //
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/vote",
+     * summary="Store",
+     * description="create new vote",
+     * operationId="store",
+     * tags={"votes"},
+     * security={{"bearer_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="the vote contents",
+     *    @OA\JsonContent(
+     *       required={"post_id","command_id","status"},
+     *       @OA\Property(property="post_id", type="integer",example=1),
+     *       @OA\Property(property="command_id", type="integer", example=1),
+     *       @OA\Property(property="status", type="integer", example=1),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         if(auth()->check()){
@@ -49,6 +79,36 @@ class VoteController extends Controller
         //
     }
 
+    /**
+     * @OA\Delete (
+     * path="/api/vote/{id}",
+     * summary="Store",
+     * description="delete vote",
+     * operationId="destroy",
+     * tags={"votes"},
+     * security={{"bearer_token":{}}},
+     * @OA\Parameter(
+     *     description="the vote id to delete",
+     *     in="path",
+     *     name="id",
+     *     required=true,
+     *       @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         if(auth()->check()) {

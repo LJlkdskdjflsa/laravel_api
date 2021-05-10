@@ -50,13 +50,73 @@ class PostsController extends Controller
             ->orderBy('posts.id')
             ->get();
         return response()->json($vote_post, Response::HTTP_OK);
-
     }
 
+    /**
+     * @OA\Get(
+     * path="/api/posts/{id}",
+     * summary="Show",
+     * description="The infomation about the post",
+     * operationId="show",
+     * tags={"posts"},
+     *     @OA\Parameter(
+     *         description="the post id to show",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *         )
+     *     ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success"
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Returns when user is not authenticated",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Not authorized"),
+     *    )
+     * )
+     * )
+     */
     public function show($id)
     {
         return Post::find($id);
     }
+
+
+    /**
+     * @OA\Post(
+     * path="/api/posts",
+     * summary="Store",
+     * description="create new posts",
+     * operationId="store",
+     * tags={"posts"},
+     * security={{"bearer_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass post content",
+     *    @OA\JsonContent(
+     *       required={"title","content"},
+     *       @OA\Property(property="title", type="string",example="Post 1 title"),
+     *       @OA\Property(property="content", type="string", example="the post 1 is a test post"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         if(auth()->check()){
@@ -79,6 +139,45 @@ class PostsController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     * path="/api/posts/{id}",
+     * summary="Update",
+     * description="update post",
+     * operationId="update",
+     * tags={"posts"},
+     * @OA\Parameter(
+     *     description="the post id to update ",
+     *     in="path",
+     *     name="id",
+     *     required=true,
+     *       @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     * ),
+     * security={{"bearer_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass post content",
+     *    @OA\JsonContent(
+     *       required={"title","content"},
+     *       @OA\Property(property="title", type="string",example="Post 1 title updated"),
+     *       @OA\Property(property="content", type="integer", example="the post 1 is a test post updated"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         if(auth()->check()) {
@@ -100,6 +199,36 @@ class PostsController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     * path="/api/posts/{id}",
+     * summary="Delete",
+     * description="delete post",
+     * operationId="destroy",
+     * tags={"posts"},
+     * @OA\Parameter(
+     *     description="the post id to delete ",
+     *     in="path",
+     *     name="id",
+     *     required=true,
+     *       @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     * ),
+     * security={{"bearer_token":{}}},
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         if(auth()->check()) {
@@ -126,6 +255,35 @@ class PostsController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     * path="/api/posts/{title_words}",
+     * summary="Search",
+     * description="search post",
+     * operationId="search",
+     * tags={"posts"},
+     * @OA\Parameter(
+     *     description="the post title to search",
+     *     in="path",
+     *     name="id",
+     *     required=true,
+     *       @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="OK",
+     *    @OA\JsonContent(
+     *       @OA\Property(
+     *          property="message",
+     *          type="string",
+     *          example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
+     */
     public function search($title)
     {
         return Post::where('title', 'like', '%' . $title . '%')->get();

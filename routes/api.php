@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 //public route
 //user
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('user/register', [AuthController::class, 'register']);
+Route::post('user/login', [AuthController::class, 'login']);
 //post
 Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{post}', [PostsController::class, 'show']);
@@ -36,8 +36,8 @@ Route::get('/posts/{post}/commands', [CommandsController::class, 'show']);
 //protected route
 Route::group(['middleware' => ['auth:sanctum']],function(){
     //user
-    Route::post('/user', [AuthController::class, 'profile']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/user/profile', [AuthController::class, 'profile']);
+    Route::post('/user/logout', [AuthController::class, 'logout']);
     Route::post('/user/update', [AuthController::class, 'update']);
     //post
     Route::post('/posts', [PostsController::class, 'store']);
