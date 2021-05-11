@@ -30,9 +30,6 @@ Route::get('/posts/search/{title}', [PostsController::class, 'search']);
 Route::get('/commands', [CommandsController::class, 'index']);
 Route::get('/posts/{post}/commands', [CommandsController::class, 'show']);
 
-
-
-
 //protected route
 Route::group(['middleware' => ['auth:sanctum']],function(){
     //user

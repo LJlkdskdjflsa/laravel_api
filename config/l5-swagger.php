@@ -158,7 +158,9 @@ return [
                 */
                 [
 
-                    'api_key_security_example' => [
+                    'bearer_token' => [
+                        'read',
+                        'write'
                     ],
 /*
                     'oauth2_security_example' => [

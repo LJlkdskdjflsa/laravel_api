@@ -16,7 +16,7 @@ class AuthController extends Controller
      *     path="/api/user/register",
      *     summary="Register",
      *     description="Register new user",
-     *     operationId="register",
+     *     operationId="authRegister",
      *     tags={"auth"},
      *     summary="Register a new user",
      *     @OA\RequestBody(
@@ -194,7 +194,6 @@ class AuthController extends Controller
      * path="/api/user/logout",
      * summary="Logout",
      * description="Logout user and invalidate token",
-     * operationId="logout",
      * operationId="logout",
      * tags={"auth"},
      * security={{"bearer_token":{}}},
