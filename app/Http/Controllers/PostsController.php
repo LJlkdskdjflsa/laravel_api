@@ -37,12 +37,18 @@ class PostsController extends Controller
         $vote_post = DB::table('posts')
             ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
             ->leftJoin('users', 'users.id', '=', 'posts.user_id')
+            ->leftJoin('commands', 'commands.post_id', '=', 'posts.id')
             ->select('posts.id',
                 'posts.title',
                 'posts.user_id',
                 'users.name as author_name',
-                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 1 ) AS "likes"'),
-                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 0 ) AS "dislikes"'),
+                DB::raw(' COUNT(commands.content) AS commands_count'),
+                //command sum
+
+                //vote sum
+/*                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 1 ) AS "likes"'),
+                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 0 ) AS "dislikes"'),*/
+
                 'posts.created_at',
                 'posts.updated_at',
             )

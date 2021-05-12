@@ -1,0 +1,35 @@
+version: "3.9"
+
+networks:
+  laravel:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "8088:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - laravel:
+
+  mysql:
+    image: mysql:5.7.32
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "4306:3306"
+    volumes:
+      - ./mysql:/var/
+    networks:
+      - laravel:
+
+  php:
+    networks:
+      - laravel:
+
