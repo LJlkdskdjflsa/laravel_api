@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use ErrorException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -167,14 +168,16 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
+        $user = User::where('email', $fields['email'])->first();
 
+        try {
         // Check email
-        $user_arr = User::where('email', $fields['email'])->first();
-        //var_dump($user_arr) ;
-        echo $user_arr;
-
-        $user = $user_arr[0];
-/*        //check user
+            $user = User::where('email', $fields['email'])->first();
+            echo $user;
+        } catch (ErrorException $e) {
+            echo $e;
+        }
+        //check user
         if (!$user || !Hash::check($fields['password'], $user->password)){
             return response([
                 'message' => 'Not correct email or password'
@@ -189,7 +192,7 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
-        //return $user[0];*/
+        //return $user[0];
     }
 
     /**
