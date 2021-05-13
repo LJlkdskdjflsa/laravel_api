@@ -173,7 +173,6 @@ class AuthController extends Controller
         try {
         // Check email
             $user = User::where('email', $fields['email'])->first();
-            echo $user;
         } catch (ErrorException $e) {
             echo $e;
         }
@@ -183,7 +182,7 @@ class AuthController extends Controller
                 'message' => 'Not correct email or password'
             ], 401);
         }
-
+        $user->tokens()->delete();
         $token = $user->createToken('userToken')->plainTextToken;
 
         $response = [

@@ -305,8 +305,6 @@ class PostsController extends Controller
                 'user_id' => auth()->id(),
                 'post_id' => $post_id,
                 'content' => 'first',
-                'likes'=>0,
-                'dislikes'=>0,
             ]);
 
             return "success";

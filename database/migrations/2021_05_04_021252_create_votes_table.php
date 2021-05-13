@@ -16,8 +16,8 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('post_id')->constrained();
-            $table->foreignId('command_id')->constrained()->nullable();
+            $table->bigInteger('post_id')->constrained();
+            $table->bigInteger('command_id')->constrained()->nullable();
             $table->bigInteger('status');
             // like 1 ,dislike 0
             $table->timestamps();
