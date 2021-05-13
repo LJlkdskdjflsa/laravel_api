@@ -18,6 +18,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //test user
+        User::factory()->create(
+            [
+                'name' => 'test',
+                'email' => 'test@gmail.com',
+                'password' => '$2y$10$n2sJFj0N7YpfYsB8/dBALuYAHpRudzQ0d3jV8GnknlkverRBRnsWy', // password
+            ]
+        );
+
         User::factory(10)->create();
         Post::factory(10)->create();
         //first command
@@ -25,7 +34,7 @@ class DatabaseSeeder extends Seeder
             Command::create([
                 'user_id' => 1,
                 'post_id' => $post,
-                'content' => 'first',
+                'content' => null,
                 'likes'=>0,
                 'dislikes'=>0,
             ]);
@@ -42,6 +51,12 @@ class DatabaseSeeder extends Seeder
                             'user_id' => $user_id,
                             'post_id' => $post_id,
                             'command_id' => $command_id,
+                        ]);
+                    }else{
+                        Vote::factory()->create([
+                            'user_id' => $user_id,
+                            'post_id' => $post_id,
+                            'command_id' => null,
                         ]);
                     }
                 }

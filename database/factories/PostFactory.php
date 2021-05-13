@@ -3,9 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -25,8 +23,8 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => $this->faker->numberBetween(1,10),
-            'title' => $this->faker->name,
-            'content' => $this->faker->paragraph(1),
+            'title' => $this->faker->title(10),
+            'content' => $this->faker->realText(200),
             'likes' => $this->faker->numberBetween(1,10),
             'dislikes' => $this->faker->numberBetween(1,10),
         ];

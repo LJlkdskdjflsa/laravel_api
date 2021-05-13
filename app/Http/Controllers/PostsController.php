@@ -34,28 +34,46 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $vote_post = DB::table('posts')
-            ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+        $votes = DB::table('votes')
+            ->select(
+                'post_id',
+                DB::raw('count(votes.status) filter ( WHERE votes.status = 1 ) as like'),
+                DB::raw('count(votes.status) filter ( WHERE votes.status = 0 ) as dislike ')
+            )
+            ->where('command_id', '=', null)
+            ->groupBy('post_id');
+
+        $posts = DB::table('posts')
             ->leftJoin('users', 'users.id', '=', 'posts.user_id')
             ->leftJoin('commands', 'commands.post_id', '=', 'posts.id')
-            ->select('posts.id',
+            ->leftJoinSub($votes, 'votes', function ($join) {
+                $join->on('posts.id', '=', 'votes.post_id');
+            })
+            ->select(['posts.id',
                 'posts.title',
                 'posts.user_id',
                 'users.name as author_name',
-                DB::raw(' COUNT(commands.content) AS commands_count'),
-                //command sum
-
-                //vote sum
-/*                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 1 ) AS "likes"'),
-                DB::raw(' COUNT(votes.status) FILTER ( WHERE votes.status = 0 ) AS "dislikes"'),*/
-
+                DB::raw(' COUNT(*) AS commands_count'),
+                //DB::Raw('IFNULL( votes.like , 0 )'),
+                DB::raw('COALESCE(votes.like, 0) as like'),
+                DB::raw('COALESCE(votes.dislike, 0) as dislike'),
+                //DB::raw('IFNULL(`votes`.`dislike`, 0) as votes.dislike'),
+                //'votes.like',
+                //'votes.dislike',
                 'posts.created_at',
-                'posts.updated_at',
-            )
-            ->groupBy('posts.id','votes.post_id','users.name')
+                'posts.updated_at'
+            ])
+            ->groupBy('posts.id','users.name','votes.like','votes.dislike')
             ->orderBy('posts.id')
             ->get();
-        return response()->json($vote_post, Response::HTTP_OK);
+
+
+/*        $votes = DB::table(votes)
+            ->select(
+            )
+            ->where()
+            ->get();*/
+        return response()->json($posts, Response::HTTP_OK);
     }
 
     /**
@@ -90,7 +108,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return Post::find($id);
+        $post = Post::find($id);
+        return response()->json($post, Response::HTTP_OK);
     }
 
 
