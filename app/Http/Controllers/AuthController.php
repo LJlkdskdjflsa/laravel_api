@@ -169,9 +169,12 @@ class AuthController extends Controller
         ]);
 
         // Check email
-        $user_arr = User::where('email', $fields['email'])->get();
+        $user_arr = User::where('email', $fields['email'])->first();
+        //var_dump($user_arr) ;
+        echo $user_arr;
+
         $user = $user_arr[0];
-        //check user
+/*        //check user
         if (!$user || !Hash::check($fields['password'], $user->password)){
             return response([
                 'message' => 'Not correct email or password'
@@ -186,7 +189,7 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
-        //return $user[0];
+        //return $user[0];*/
     }
 
     /**
